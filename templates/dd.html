@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="../static/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Arimo:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/all.min.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <script src="../static/main.js"></script>
+    <script src=" https://cdn.bootcss.com/jquery/3.3.1/jquery.slim.min.js "></script>
+    <script src=" https://cdn.bootcss.com/popper.js/1.14.3/esm/popper.min.js "></script>
+    <script src=" https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js "></script>
+    <script src=" https://cdn.bootcss.com/twitter-bootstrap/4.1.3/js/bootstrap.min.js "></script>
+    <title>神经涂鸦</title>
+</head>
+
+
+<body data-spy="scroll" data-target=".navbar" data-offset="70">
+<!--bootstrap滚动监听，导航栏移动-->
+<!--header menu start-->
+<div class="full_manu_header " id="menu_top"></div>
+<!--header menu end-->
+
+<!--tip-->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="section_title">
+                <h1 id="tip">..........</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 ">
+            <div class="doodle-step">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div id="drop_area"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--step2 start-->
+<div class="container">
+    <div class="row">
+        <div class="doodle-step">
+            <canvas id="cavs" width="400px" height="320px"></canvas>
+            <br/>
+            <div class="doodle_button">
+                <input type="color" id="color">
+            </div>
+            <div class="doodle_button">
+                <input type="button" value="As语义地图" id="Download1">
+            </div>
+            <div class="doodle_button">
+                <input type="button" value="As设定地图" id="Download2">
+            </div>
+            <div class="doodle_button">
+                <input type="button" value="撤销" id="Cancel">
+            </div>
+            <div class="doodle_button">
+                <input type="button" value="清屏" id="Clear">
+            </div>
+            <div class="doodle_button">
+                <input type="button" value="线条" id="Line">
+            </div>
+            <div class="doodle_button">
+                <input type="button" value="橡皮" id="Eraser">
+            </div>
+            <div class="doodle_button">
+                选择语义地图
+                <input style="display: inline" type="file" id="pic_map"
+                       onchange="selectmap(this.id,'photo2');"/>
+            </div>
+            <div class="doodle_button">
+                选择设计地图
+                <input style="display: inline" type="file" id="pic_match"
+                       onchange="selectmatch(this.id,'photo3');"/>
+            </div>
+            <div class="doodle_button">
+                <input type="range" id="thick" value="5" min="0" max="100">
+            </div>
+        </div>
+    </div>
+</div>
+<!--step2 end-->
+
+
+<main role="main">
+    <section class="doc text-center">
+        <div>
+            <div style="margin-left: 300px;">
+                <img id="photo1" src="" width="300px" height="300px"
+                     style="display: block;margin-left: 20px;float: left"/>
+                <img id="photo2" src="" width="300px" height="300px"
+                     style="display: block;margin-left: 20px;float: left"/>
+                <img id="photo3" src="" width="300px" height="300px"
+                     style="display: block;margin-left: 20px;float: left"/>
+                <img id="photo4" src="" width="300px" height="300px"
+                     style="display: block;margin-left: 20px;float: left"/>
+            </div>
+
+            <div style="height: 350px;width: auto"></div>
+
+            <button type="button" class="btn btn-secondary op" id="conf">提交</button>
+            <div style="height: 50px;width: auto"></div>
+        </div>
+    </section>
+</main>
+
+<!--spliter start-->
+<div class="spliter"></div>
+<!--spliter end-->
+
+<script>
+
+    pic = "";
+    pic_match = "";
+    pic_map = "";
+    ischangejign = false;
+
+    function selectmap(sourceId, targetId) {
+        preImg(sourceId, targetId);
+        var f = document.getElementById("pic_map").files;
+        console.log("从文件选择的语义地图： "+f[0].name);
+        pic_match = f[0].name;
+    }
+
+    function selectmatch(sourceId, targetId) {
+        preImg(sourceId, targetId);
+        var f = document.getElementById("pic_match").files;
+        console.log("从文件选择的匹配地图： "+f[0].name);
+        pic_map = f[0].name;
+    }
+
+    $(function () {
+        $('#conf').click(function () {
+            console.log("提交");
+            console.log("pic:"+pic +"    pic_match:" +pic_match +"     pic_map:"+pic_map);
+            if (pic.length != 0 && pic_map.length != 0 && pic_map.length != 0) {
+                ischangejign =true;
+                var picaddress = {
+                    pic: pic,
+                    pic_match: pic_match,
+                    pic_map:pic_map ,
+                }
+                var senddata = JSON.stringify(picaddress);
+                $.ajax({
+                    url: '/pred',
+                    type: 'POST',
+                    data: senddata,
+                    processData: false,
+                    contentType: false,
+                    success: function (msg) {
+                        if (msg) {
+                            var imgpre = document.getElementById("photo4");
+                            imgpre.src = "../" + msg.results["result"];
+                            console.log(msg.results)
+                            //$('#result').html(msg.results.result.toString());
+                        } else
+                            console.log("!!")
+                    }
+                });
+            } else {
+                alert("三个部分必须有都选择");
+            }
+        })
+    })
+
+    $("#Download1").click(function (event) {
+        download1.draw();
+    });
+
+    $("#Download2").click(function (event) {
+        download2.draw();
+    });
+    var download2 = {
+        draw: function () {
+            // 保存图片，下载到本地
+            var type = 'png';
+            var imgData = $('#cavs')[0].toDataURL(type);
+            /**
+             * 获取mimeType
+             * @param  {String} type the old mime-type
+             * @return the new mime-type
+             */
+            var _fixType = function (type) {
+                type = type.toLowerCase().replace(/jpg/i, 'jpeg');
+                var r = type.match(/png|jpeg|bmp|gif/)[0];
+                return 'image/' + r;
+            };
+            // 加工image data，替换mime type
+            imgData = imgData.replace(_fixType(type), 'image/octet-stream');
+            /**
+             * 在本地进行文件保存
+             * @param  {String} data     要保存到本地的图片数据
+             * @param  {String} filename 文件名
+             */
+            var saveFile = function (data, filename) {
+                var save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
+                save_link.href = data;
+                save_link.download = filename;
+
+                var event = document.createEvent('MouseEvents');
+                // initMouseEvent()方法参数解释在    http://blog.sina.com.cn/s/blog_3e9b01a50100leyj.html
+                event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+                save_link.dispatchEvent(event);
+            };
+            // 下载后的文件名
+            var filename = 'neural_doodle' + (new Date()).getTime() + '.' + type;
+            // download
+            saveFile(imgData, filename);
+            pic_map = filename;
+            console.log(filename);
+
+            setTimeout("document.getElementById(\"photo3\").src = \"../static/input/\" + pic_map", 1500);
+        }
+    }
+
+    var download1 = {
+        draw: function () {
+            // 保存图片，下载到本地
+            var type = 'png';
+            var imgData = $('#cavs')[0].toDataURL(type);
+            /**
+             * 获取mimeType
+             * @param  {String} type the old mime-type
+             * @return the new mime-type
+             */
+            var _fixType = function (type) {
+                type = type.toLowerCase().replace(/jpg/i, 'jpeg');
+                var r = type.match(/png|jpeg|bmp|gif/)[0];
+                return 'image/' + r;
+            };
+            // 加工image data，替换mime type
+            imgData = imgData.replace(_fixType(type), 'image/octet-stream');
+            /**
+             * 在本地进行文件保存
+             * @param  {String} data     要保存到本地的图片数据
+             * @param  {String} filename 文件名
+             */
+            var saveFile = function (data, filename) {
+                var save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
+                save_link.href = data;
+                save_link.download = filename;
+
+                var event = document.createEvent('MouseEvents');
+                // initMouseEvent()方法参数解释在    http://blog.sina.com.cn/s/blog_3e9b01a50100leyj.html
+                event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+                save_link.dispatchEvent(event);
+            };
+            // 下载后的文件名
+            var filename = 'neural_doodle' + (new Date()).getTime() + '.' + type;
+            // download
+            saveFile(imgData, filename);
+            pic_match = filename;
+            console.log(filename);
+
+            setTimeout("document.getElementById(\"photo2\").src = \"../static/input/\" + pic_match;", 1500);
+        }
+    }
+
+    function getFileUrl(sourceId) {
+        var url;
+        if (navigator.userAgent.indexOf("MSIE") >= 1) { // IE
+            url = document.getElementById(sourceId).value;
+        } else if (navigator.userAgent.indexOf("Firefox") > 0) { // Firefox
+            url = window.URL.createObjectURL(document.getElementById(sourceId).files.item(0));
+        } else if (navigator.userAgent.indexOf("Chrome") > 0) { // Chrome
+            url = window.URL.createObjectURL(document.getElementById(sourceId).files.item(0));
+        }
+        return url;
+    }
+
+    function geturl(fileid) {
+        var name = document.getElementById(fileid).value;
+        var pos = name.lastIndexOf("\\");
+        return name.substring(pos + 1);
+    }
+
+    function preImg(sourceId, targetId) {
+        var url = getFileUrl(sourceId);
+        var imgPre = document.getElementById(targetId);
+        imgPre.src = url;
+    }
+
+</script>
+<script src="../static/js/jquery.js"></script>
+<script src="../static/js/canvas.js"></script>
+<script src="../static/js/upload.js"></script>
+<script type="text/javascript" src="../static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    var dragImgUpload = new DragImgUpload("#drop_area", {
+        callback: function (files) {
+            //回调函数，可以传递给后台等等
+            var file = files[0];
+            pic = file.name;
+
+            document.getElementById("photo1").src = "../static/input/" + file.name;
+            console.log("风格图片： " + pic);
+        }
+    })
+</script>
+</body>
+</html>
