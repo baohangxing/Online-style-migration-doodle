@@ -3,14 +3,3 @@ torch>=0.4.0
 torchvision>=0.2.1
 tqdm>=4.23.1
 Pillow>=5.1.0
-
-
-https://blog.csdn.net/zzq060143/article/details/88042075
-
-conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
-conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
-conda config --set show_channel_urls yes
-
-conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/
-
-conda install pytorch torchvision cudatoolkit=10.0
