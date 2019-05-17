@@ -1,0 +1,308 @@
+/*
+Wizzy v0.5
+Author: Nenad Kaevik
+License: MIT
+*/
+
+/* Colors */
+@color-primary: #3498db;
+@color-secondary: #9b59b6;
+@color-info: #1abc9c;
+@color-success: #2ecc71;
+@color-warning: #f1c40f;
+@color-danger: #e74c3c;
+@color-happy: #9b59b6;
+@color-dark: #34495e;
+@color-gray: #999999;
+@color-light: #ecf0f1;
+@color-white: #ffffff;
+@color-black: #212121;
+
+/* Devices Media Queries */
+
+@device-desktops: 1280px;
+@device-laptops: 1024px;
+@device-tablets: 768px;
+@device-mobile: 480px;
+
+/* Mixins */
+.br-0{
+    border-radius: 0px;
+}
+
+.br-3{
+    border-radius: 3px;
+}
+
+.br-5{
+    border-radius: 5px;
+}
+
+.br-10{
+    border-radius: 10px;
+}
+
+.br-20{
+    border-radius: 20px;
+}
+
+.paintelem(@bg){
+    background: @bg;
+    color: @color-white;
+
+    &:hover{
+        background: lighten(@bg,10%);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.wz-wrapper{
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    width:600px;
+    min-height:400px;
+    background: #ffffff;
+    box-shadow: 0px 50px 50px -30px rgba(0,0,0,0.4);
+    transition-duration: 0.4s;
+    .br-3;
+
+    .loading {
+        margin:9px;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        border: .25rem solid rgba(0,0,0,0.2);
+        border-top-color: @color-dark;
+        animation: spin 0.5s infinite ease-in-out;
+    }
+
+    &.progress{
+        min-height:50px;
+        width:50px;
+        border-radius: 50px;
+        box-shadow: 0px 10px 20px -10px rgba(0,0,0,0.4);
+
+        .wz-inner{
+            display: none;
+        }
+    }
+
+    .wz-inner{
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        .wz-header{
+            flex: 0;
+            padding: 10px;
+    
+            nav{
+                width:100%;
+                display: flex;
+                flex-direction: row;
+                .br-3;
+                overflow: hidden;
+                background: @color-light;
+                position: relative;
+    
+                a{
+                    flex: 1;
+                    text-align: center;
+                    line-height: 40px;
+                    text-decoration: none;
+                    text-transform: uppercase;
+                    color: @color-gray;
+                    font-size: 12px;
+                    position: relative;
+                    height: 40px;
+                    transition-duration: 0.4s;
+    
+                    &.active{
+                        color: @color-white;
+                    }
+
+                    &.completed{
+                        color: fade(@color-white,40%);
+                    }
+
+                    span{
+                        position: relative;
+                        z-index: 2;
+                    }
+                }
+
+                .progress{
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    height: 100%;
+                    width:0px;
+                    background: @color-primary;
+                    transition-duration: 0.4s;
+                    transition-timing-function: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+                }
+            }
+        }
+    
+        .wz-body{
+            flex: 1;
+            padding: 20px;
+            .wz-step{
+                display: none;
+                animation-duration: 0.4s;
+                color: @color-black;
+    
+                &.active{
+                    display: block;
+                }
+    
+                p{
+                    margin: 0px;
+                }
+            }
+        }
+    
+        .wz-navigator{
+            width:100%;
+            box-sizing: border-box;
+            padding: 10px;
+            display: block;
+            flex: 0;
+            .btn{
+                padding: 12px 22px;
+                background: @color-light;
+                color: @color-gray;
+                text-decoration: none;
+                text-align: center;
+                text-transform: uppercase;
+                font-size: 12px;
+                transition-duration: 0.3s;
+                .br-3;
+
+                &.right{
+                    float: right;
+                }
+                
+                &.left{
+                    float: left;
+                }
+
+                &.btn-primary{
+                    .paintelem(@color-primary);
+                }
+
+                &.btn-secondary{
+                    .paintelem(@color-secondary);
+                }
+
+                &.btn-info{
+                    .paintelem(@color-info);
+                }
+
+                &.btn-warning{
+                    .paintelem(@color-warning);
+                }
+
+                &.btn-danger{
+                    .paintelem(@color-danger);
+                }
+
+                &.btn-success{
+                    .paintelem(@color-success);
+                }
+
+                &.btn-dark{
+                    .paintelem(@color-dark);
+                }
+
+                &.btn-happy{
+                    .paintelem(@color-happy);
+                }
+
+            }
+        }
+
+    }
+}
+
+/* 
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+@media (min-width: @device-desktops + 1px) {
+    .wz-wrapper{
+        width: 600px;
+    }
+}
+  
+/* 
+##Device = Laptops, Desktops
+##Screen = B/w 1025px to 1280px
+*/
+
+@media (min-width: @device-laptops + 1px) and (max-width: @device-desktops) {
+    .wz-wrapper{
+        width: 600px;
+    }
+}
+
+/* 
+##Device = Tablets, Ipads (portrait)
+##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: @device-tablets) and (max-width: @device-laptops) {
+    .wz-wrapper{
+        width: 100%;
+    }
+}
+
+/* 
+##Device = Tablets, Ipads (landscape)
+##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: @device-tablets) and (max-width: @device-laptops) and (orientation: landscape) {
+    .wz-wrapper{
+        width: 100%;
+    }
+}
+
+/* 
+##Device = Low Resolution Tablets, Mobiles (Landscape)
+##Screen = B/w 481px to 767px
+*/
+
+@media (min-width: @device-mobile + 1px) and (max-width: @device-tablets - 1px) {
+    .wz-wrapper{
+        width: 100%;
+    }
+}
+
+/* 
+##Device = Most of the Smartphones Mobiles (Portrait)
+##Screen = B/w 320px to 479px
+*/
+
+@media (min-width: @device-mobile - 160px) and (max-width: @device-mobile) {
+    .wz-wrapper{
+        width: 100%;
+        .wz-header{
+            nav{
+                flex-direction: column;
+                a{
+                    height: 30px;
+                    line-height: 30px;
+                }
+            }
+        }
+    }
+}
