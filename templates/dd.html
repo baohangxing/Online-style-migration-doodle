@@ -36,16 +36,10 @@
 </div>
 
 <div class="container">
-    <div class="row">
-        <div class="col-lg-12 ">
-            <div class="doodle-step">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div id="drop_area"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="doodle-step">
+
+        <div id="drop_area"></div>
+
     </div>
 </div>
 
@@ -131,27 +125,27 @@
     function selectmap(sourceId, targetId) {
         preImg(sourceId, targetId);
         var f = document.getElementById("pic_map").files;
-        console.log("从文件选择的语义地图： "+f[0].name);
+        console.log("从文件选择的语义地图： " + f[0].name);
         pic_match = f[0].name;
     }
 
     function selectmatch(sourceId, targetId) {
         preImg(sourceId, targetId);
         var f = document.getElementById("pic_match").files;
-        console.log("从文件选择的匹配地图： "+f[0].name);
+        console.log("从文件选择的匹配地图： " + f[0].name);
         pic_map = f[0].name;
     }
 
     $(function () {
         $('#conf').click(function () {
             console.log("提交");
-            console.log("pic:"+pic +"    pic_match:" +pic_match +"     pic_map:"+pic_map);
+            console.log("pic:" + pic + "    pic_match:" + pic_match + "     pic_map:" + pic_map);
             if (pic.length != 0 && pic_map.length != 0 && pic_map.length != 0) {
-                ischangejign =true;
+                ischangejign = true;
                 var picaddress = {
                     pic: pic,
                     pic_match: pic_match,
-                    pic_map:pic_map ,
+                    pic_map: pic_map,
                 }
                 var senddata = JSON.stringify(picaddress);
                 $.ajax({

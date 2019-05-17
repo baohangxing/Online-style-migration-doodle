@@ -44,6 +44,8 @@ def makeit(pic,match,map):
     return name
 
 
+# makeit('Renoir6_gen.jpg', 'se1.png','se2.png')
+
 
 
 

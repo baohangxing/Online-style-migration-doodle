@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body{
+    background: url('https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-450073.png') center center no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: "Roboto";
+    height: 100vh;
+}
+
+.centered{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.wrapper{
+    margin: 0 auto;
+    padding: 20px 0px;
+}
+
+.wrapper .info{
+    text-align: center;
+}
+
+.wrapper .info h2{
+    color: #ffffff;
+    margin-left: 40px;
+}
+
+.wrapper .info h2 > span{
+    opacity: 0.5;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.wrapper .info p{
+    margin: 0px 0px 50px 0px;
+    color: #ffffff;
+}

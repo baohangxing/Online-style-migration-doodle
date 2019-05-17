@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>start</title>
+
+    <link rel="stylesheet" type="text/css" href="../static/css/normalize.css"/><!--CSS RESET-->
+    <link rel="stylesheet" type="text/css" href="../static/css/demo.css"><!--演示页面样式，使用时可以不引用-->
+
+    <link href="../static/assets/css/main.css" rel="stylesheet"><!--可无视-->
+
+
+    <link href="../static/dist/css/jquery.wizzy.css" rel="stylesheet">
+
+
+    <link href="../static/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Arimo:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/all.min.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="info">
+        <h2>在线风格迁移的涂鸦应用<span>0.2</span></h2>
+        <p>这是一个在线的风格迁移的涂鸦应用，通过语义风格的转移达到创作艺术大师的作品<br> 快来体验吧</p>
+    </div>
+
+    <!-- Start Wizzy -->
+    <div class="wz-wrapper wizzy" style="width: 1200px;height: 600px">
+        <div class="wz-inner">
+            <div class="wz-header">
+                <nav>
+                    <a href="#">第一步上传图片</a>
+                    <a href="#">第二步选择或绘制语义地图</a>
+                    <a href="#">第三部选择或绘制设计地图</a>
+                </nav>
+            </div>
+            <div class="wz-body">
+                <div class="wz-step">
+                    <div class="container">
+                        <div class="doodle-step">
+                            <div id="drop_area"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="wz-step">
+                    <div class="row doodle-step">
+                        <div style="width: 70%">
+                            <canvas id="cavs" width="400px" height="320px"></canvas>
+                        </div>
+                        <div style="width: 30%">
+                            <div class="doodle_button">
+                                <input type="button" value="       " style="background: red" id="colorred">
+                            </div>
+                            <div class="doodle_button">
+                                <input type="button" value="       " style="background: green" id="colorgreen">
+                            </div>
+                            <div class="doodle_button">
+                                <input type="button" value="        " style="background: yellow" id="coloryellow">
+                            </div>
+                            <div class="doodle_button">
+                                <input type="button" value="撤销" id="Cancel">
+                            </div>
+                            <div class="doodle_button">
+                                <input type="button" value="清屏" id="Clear">
+                            </div>
+                            <div class="doodle_button">
+                                <input type="button" value="线条" id="Line">
+                            </div>
+                            <div class="doodle_button">
+                                <input type="button" value="橡皮" id="Eraser">
+                            </div>
+                            <div class="doodle_button">
+                                <input type="button" value="        " style="background: black" id="colorblack">
+                            </div>
+                            <div class="doodle_button">
+                                <input type="color" id="color">
+                            </div>
+                            <div class="doodle_button">
+                                <button onclick="InputMypic(`cavs`,pic)">加载风格图片</button>
+                            </div>
+                            <div class="doodle_button">
+                                选择语义地图
+                                <input style="display: inline" type="file" id="pic_match"
+                                       onchange="selectmap(this.id,`cavs`)"/>
+                            </div>
+                            <div class="doodle_button">
+                                <input type="range" id="thick" value="5" min="0" max="100">
+                            </div>
+                            <br>
+                            <div class="doodle_button">
+                                <button onclick="download(false)">完成</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="wz-step">
+                    <div class="row doodle-step">
+                        <div style="width: 70%">
+                            <canvas id="cavs2" width="400px" height="320px"></canvas>
+                        </div>
+                        <div style="width: 30%">
+                            <div class="doodle_button">
+                                <input type="button" value="       " style="background: red" id="colorred2">
+                            </div>
+                            <div class="doodle_button">
+                                <input type="button" value="       " style="background: green" id="colorgreen2">
+                            </div>
+                            <div class="doodle_button">
+                                <input type="button" value="        " style="background: yellow" id="coloryellow2">
+                            </div>
+                            <div class="doodle_button">
+                                <input type="button" value="撤销" id="Cancel2">
+                            </div>
+                            <div class="doodle_button">
+                                <input type="button" value="清屏" id="Clear2">
+                            </div>
+                            <div class="doodle_button">
+                                <input type="button" value="线条" id="Line2">
+                            </div>
+                            <div class="doodle_button">
+                                <input type="button" value="橡皮" id="Eraser2">
+                            </div>
+                            <div class="doodle_button">
+                                <input type="button" value="        " style="background: black" id="colorblack2">
+                            </div>
+                            <div class="doodle_button">
+                                <input type="color" id="color2">
+                            </div>
+                            <div class="doodle_button">
+                                <button onclick="InputMypic(`cavs2`,pic)">加载风格图片</button>
+                            </div>
+                            <div class="doodle_button">
+                                选择设定地图
+                                <input style="display: inline" type="file" id="pic_map"
+                                       onchange="selectmap(this.id,`cavs2`)"/>
+                            </div>
+                            <div class="doodle_button">
+                                <input type="range" id="thick2" value="5" min="0" max="100">
+                            </div>
+                            <br>
+                            <div class="doodle_button">
+                                <button onclick="download(true)">完成</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="wz-navigator">
+            </div>
+        </div>
+    </div>
+    <!-- End Wizzy -->
+</div>
+<script>
+
+    pic = "";
+    pic_match = "";
+    pic_map = "";
+    pic_fl = "";
+    ischanging = false;
+    isfinish = false;
+
+    function InputMypic(cav, image) {
+        if (image == "") {
+            alert("您还未选择风格图片，请返回第一步选择您想要的风格图片")
+        } else {
+            var imgObj = new Image();
+            imgObj.src = "../static/input/" + image;
+            imgObj.onload = function () {
+                var cvs = document.getElementById(cav);
+                var ctx = cvs.getContext('2d');
+                ctx.drawImage(this, 0, 0, 400, 320);//改变图片的大小到1024*768
+                console.log("加载 ok");
+            }
+        }
+
+    }
+
+    function selectmap(sourceId,cav) {
+        //  var url = getFileUrl(sourceId);
+        // var imgPre = document.getElementById(targetId);
+        // imgPre.src = url;
+        //
+        //
+        // preImg(sourceId, targetId);
+        var f = document.getElementById(sourceId).files;
+
+        var imgObj = new Image();
+        imgObj.src = "../static/input/" + f[0].name;
+        imgObj.onload = function () {
+            var cvs = document.getElementById(cav);
+            var ctx = cvs.getContext('2d');
+            ctx.drawImage(this, 0, 0, 400, 320);//改变图片的大小到1024*768
+            console.log("加载"+sourceId+" ok");
+        }
+
+    }
+
+    function selectmatch(sourceId, targetId) {
+        preImg(sourceId, targetId);
+        var f = document.getElementById("pic_match").files;
+        console.log("从文件选择的匹配地图： " + f[0].name);
+        pic_map = f[0].name;
+    }
+
+    // $(function () {
+    //     $('#conf').click(function () {
+    //         console.log("提交");
+    //         console.log("pic:" + pic + "    pic_match:" + pic_match + "     pic_map:" + pic_map);
+    //         if (pic.length != 0 && pic_map.length != 0 && pic_map.length != 0) {
+    //             ischanging = true;
+    //             var picaddress = {
+    //                 pic: pic,
+    //                 pic_match: pic_match,
+    //                 pic_map: pic_map,
+    //             }
+    //             var senddata = JSON.stringify(picaddress);
+    //             $.ajax({
+    //                 url: '/pred',
+    //                 type: 'POST',
+    //                 data: senddata,
+    //                 processData: false,
+    //                 contentType: false,
+    //                 success: function (msg) {
+    //                     if (msg) {
+    //                         // var imgpre = document.getElementById("photo4");
+    //                         pic_fl = "../" + msg.results["result"];
+    //                         console.log("已经得到了最终的图片" + pic_fl);
+    //                         ischanging = false;
+    //                         //$('#result').html(msg.results.result.toString());
+    //                     } else
+    //                         console.log("!!")
+    //                 }
+    //             });
+    //         } else {
+    //             alert("三个部分必须有都选择");
+    //         }
+    //     })
+    // })
+
+    function canchange() {
+        return pic.length != 0 && pic_map.length != 0 && pic_map.length != 0
+    }
+
+
+    function getfinalimage() {
+        console.log("提交");
+        console.log("pic:" + pic + "    pic_match:" + pic_match + "     pic_map:" + pic_map);
+        var picaddress = {
+            pic: pic,
+            pic_match: pic_match,
+            pic_map: pic_map,
+        }
+        var senddata = JSON.stringify(picaddress);
+        $.ajax({
+            url: '/pred',
+            type: 'POST',
+            data: senddata,
+            processData: false,
+            contentType: false,
+            success: function (msg) {
+                if (msg) {
+                    // var imgpre = document.getElementById("photo4");
+                    pic_fl = "../" + msg.results["result"];
+                    console.log("已经得到了最终的图片" + pic_fl);
+                    isfinish = true;
+                    console.log("1:" + isfinish);
+                    //$('#result').html(msg.results.result.toString());
+                } else
+                    console.log("!!")
+            }
+        });
+    }
+
+    function download(ismap) {
+        // 保存图片，下载到本地
+        var type = 'png';
+        if (ismap) {
+            var imgData = $('#cavs2')[0].toDataURL(type);
+        } else {
+            var imgData = $('#cavs')[0].toDataURL(type);
+        }
+
+        /**
+         * 获取mimeType
+         * @param  {String} type the old mime-type
+         * @return the new mime-type
+         */
+        var _fixType = function (type) {
+            type = type.toLowerCase().replace(/jpg/i, 'jpeg');
+            var r = type.match(/png|jpeg|bmp|gif/)[0];
+            return 'image/' + r;
+        };
+        // 加工image data，替换mime type
+        imgData = imgData.replace(_fixType(type), 'image/octet-stream');
+        /**
+         * 在本地进行文件保存
+         * @param  {String} data     要保存到本地的图片数据
+         * @param  {String} filename 文件名
+         */
+        var saveFile = function (data, filename) {
+            var save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
+            save_link.href = data;
+            save_link.download = filename;
+
+            var event = document.createEvent('MouseEvents');
+            // initMouseEvent()方法参数解释在    http://blog.sina.com.cn/s/blog_3e9b01a50100leyj.html
+            event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+            save_link.dispatchEvent(event);
+        };
+        // 下载后的文件名
+        var filename = 'neural_doodle' + (new Date()).getTime() + '.' + type;
+        // download
+        saveFile(imgData, filename);
+        if (ismap) {
+            pic_map = filename;
+            console.log("map: " + filename);
+        } else {
+            pic_match = filename;
+            console.log("match: " + filename);
+        }
+    }
+
+
+    // function getFileUrl(sourceId) {
+    //     var url;
+    //     if (navigator.userAgent.indexOf("MSIE") >= 1) { // IE
+    //         url = document.getElementById(sourceId).value;
+    //     } else if (navigator.userAgent.indexOf("Firefox") > 0) { // Firefox
+    //         url = window.URL.createObjectURL(document.getElementById(sourceId).files.item(0));
+    //     } else if (navigator.userAgent.indexOf("Chrome") > 0) { // Chrome
+    //         url = window.URL.createObjectURL(document.getElementById(sourceId).files.item(0));
+    //     }
+    //     return url;
+    // }
+    //
+    // function geturl(fileid) {
+    //     var name = document.getElementById(fileid).value;
+    //     var pos = name.lastIndexOf("\\");
+    //     return name.substring(pos + 1);
+    // }
+    //
+    // function preImg(sourceId, targetId) {
+    //     var url = getFileUrl(sourceId);
+    //     var imgPre = document.getElementById(targetId);
+    //     imgPre.src = url;
+    // }
+
+
+</script>
+<script src="../static/js/jquery-1.11.0.min.js" type="text/javascript"></script>
+<script src="../static/dist/js/jquery.wizzy.js"></script>
+<script src="../static/assets/js/script.js"></script>
+<script src="../static/main.js"></script>
+<script src="../static/js/canvas.js"></script>
+<script src="../static/js/jquery.js"></script>
+<script src="../static/js/upload.js"></script>
+<script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    var dragImgUpload = new DragImgUpload("#drop_area", {
+        callback: function (files) {
+            //回调函数，可以传递给后台等等
+            var file = files[0];
+            pic = file.name;
+
+            // document.getElementById("photo1").src = "../static/input/" + file.name;
+            console.log("风格图片： " + pic);
+
+        }
+    })
+</script>
+
+</body>
+</html>

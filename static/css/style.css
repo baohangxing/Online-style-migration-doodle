@@ -529,11 +529,15 @@ button:focus{
 
 #cavs{
     border: 1px solid #cccccc;
-    margin: 10px 200px 10px 200px;
+    margin: 10px 10px 10px 80px;
+}
+#cavs2{
+    border: 1px solid #cccccc;
+    margin: 10px 10px 10px 80px;
 }
 .doodle_button{
     float: left;
-    margin-left: 50px;
+    margin: 20px 20px 20px 20px;
 }
 
 .back_to_top i{
@@ -550,4 +554,7 @@ button:focus{
     text-align: center;
     border-radius: 5px;
     cursor: pointer;
+}
+#colorred{
+
 }

@@ -25,9 +25,9 @@ def pred():
 def main():
     return render_template('index.html')
 
-@app.route('/dd.html/')
+@app.route('/start.html/')
 def dd():
-    return render_template('dd.html')
+    return render_template('start.html')
 
 
 
