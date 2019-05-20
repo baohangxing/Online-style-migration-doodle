@@ -1,6 +1,8 @@
 
 ## Online style migration doodle
 
+## 完善中 到7月结束，任何问题请在issues中提出
+
 在线风格迁移的涂鸦应用
 
 This is a web application under [the project (Neural Doodles:
