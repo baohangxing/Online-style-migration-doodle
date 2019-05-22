@@ -60,7 +60,7 @@
              * @param {boolean} show
              */
             function loader(show) {
-                let loader = '<div class="loading" style="margin:  300px 500px;font-size: 30px" >请等待。。。</div>';
+                let loader = '<div class="loading"></div>';
                 if (show === true) { //Show Loader Spinner
                     content.fadeOut(400, function () {
                         elem.addClass('progress');
@@ -71,7 +71,8 @@
                 } else {
                     elem.find('.loading').remove();
                     elem.removeClass('progress');
-                    let showfinal = '<div style="margin-left: 300px;margin-top: 50px"><img src="../' + pic_fl + '" style="width: 600px ;height: 400px"></div>';
+                    base = picbase.slice(3)
+                    let showfinal = '<div style="margin-left: 300px;margin-top: 50px"><img src="data:image/png;base64,' + base + '" style="width: 600px ;height: 400px"></div>';
                     elem.append(showfinal);
                 }
             }
@@ -88,25 +89,49 @@
                         if (step_status[step] === 0) {
                             step_status[step] = 1;
                         }
+
+                        // if(step=== 1){
+                        //     canchange();
+                        // getinputimg();
+                        // }
+                        // if (step === 2) {
+                        //     uploding("cavs");
+                        // }
+                        // if (step === 3) {
+                        //     uploding("cavs2")
+                        // }
                         render(step);
-                    } else if (action == 'back') {
+
+                    } else if (action === 'back') {
                         step--;
                         render(step);
-                    } else if (action == 'finish') {
-                        if (canchange()) {
+                    } else if (action === 'finish') {
+
+                        $.ajax({
+                            url: '/isready',
+                            type: 'GET',
+                            success: function (msg) {
+                                if (msg) {
+                                    if (msg.results["isready"] === "ok") {
+
+                                        setInterval(function () {
+                                            changeisfinal()
+                                        }, 1000);
+                                        getfinalimage();
+                                    } else {
+                                        alert("请在三个部分图片都选择或是绘制后，在选择最后一步！！！")
+                                    }
+                                }
+                            }
+                        });
 
 
-                            setInterval(function () {
-                                changeisfinal()
-                            }, 1000);
-                            getfinalimage();
-                            // loader(true);
-                            // setTimeout(() => {
-                            //     loader(false);
-                            // }, 3000);
-                        } else {
-                            alert("请在三个部分图片都选择或是绘制后，在选择最后一步！！！")
-                        }
+                        // loader(true);
+                        // setTimeout(() => {
+                        //     loader(false);
+                        // }, 3000);
+
+
                     }
                 }
 

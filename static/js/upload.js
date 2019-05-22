@@ -114,7 +114,4 @@ DragImgUpload.prototype = {
         fileInput.click();
     }
 
-
-
-
 }

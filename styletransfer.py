@@ -1,25 +1,30 @@
 import torch
 import numpy as np
+import time
+import  base64
+
+
 import matplotlib.pyplot as plt
 
 # Make sure we all see the same
-np.random.seed(456);
-torch.manual_seed(456);
+np.random.seed(456)
+torch.manual_seed(456)
 
-def makeit(pic,match,map):
+
+def makeit(pic, map,  match):
     import style
     from style.utils import gallery, animate_progress
     bb = style.Backbone()
     st = style.IteratedStyleTransfer(bb)
     a_sem = \
-        style.image.open('static/input/'+match) \
+        style.image.open(getpath(map)) \
             .scale_long_to(256, resample=style.image.NEAREST)
     a = \
-        style.image.open('static/input/'+pic) \
+        style.image.open(getpath(pic)) \
             .scale_long_to(256)
 
     seed_sem = \
-        style.image.open('static/input/'+map) \
+        style.image.open(getpath(match)) \
             .scale_to(a_sem.shape, resample=style.image.NEAREST)
 
     seed = \
@@ -39,13 +44,16 @@ def makeit(pic,match,map):
 
     # Below shows the reconstruction
     x = next(g)
-    name ='static/output/changged_' +pic
-    x.save(name)
-    return name
+    filename = r'static\input' + '\output_{}.png'.format(time.time())
+
+    x.save(filename)
+    f = open(filename, 'rb')
+    bian_ma = base64.b64encode(f.read())
+    f.close
+    return str(bian_ma)[2:][:-1]
 
 
-# makeit('Renoir6_gen.jpg', 'se1.png','se2.png')
-
-
+def getpath(a):
+    return '/'.join(a[2:].split('\\'))
 
 

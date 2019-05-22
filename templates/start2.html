@@ -95,7 +95,7 @@
                             </div>
                             <br>
                             <div class="doodle_button">
-                                <button onclick="download(false)">完成</button>
+                                <button onclick=" uploding('cavs') ">完成</button>
                             </div>
                         </div>
                     </div>
@@ -146,7 +146,7 @@
                             </div>
                             <br>
                             <div class="doodle_button">
-                                <button onclick="download(true)">完成</button>
+                                <button onclick=" uploding('cavs2')">完成</button>
                             </div>
                         </div>
                     </div>
@@ -160,11 +160,8 @@
 </div>
 <script>
 
-    pic = "";
-    pic_match = "";
-    pic_map = "";
-    pic_fl = "";
-    ischanging = false;
+    pic = ""
+    picbase = ""
     isfinish = false;
 
     function InputMypic(cav, image) {
@@ -172,7 +169,7 @@
             alert("您还未选择风格图片，请返回第一步选择您想要的风格图片")
         } else {
             var imgObj = new Image();
-            imgObj.src = "../static/input/" + image;
+            imgObj.src = "data:image/jpeg;base64," + image;
             imgObj.onload = function () {
                 var cvs = document.getElementById(cav);
                 var ctx = cvs.getContext('2d');
@@ -183,7 +180,7 @@
 
     }
 
-    function selectmap(sourceId,cav) {
+    function selectmap(sourceId, cav) {
         //  var url = getFileUrl(sourceId);
         // var imgPre = document.getElementById(targetId);
         // imgPre.src = url;
@@ -198,78 +195,22 @@
             var cvs = document.getElementById(cav);
             var ctx = cvs.getContext('2d');
             ctx.drawImage(this, 0, 0, 400, 320);//改变图片的大小到1024*768
-            console.log("加载"+sourceId+" ok");
+            console.log("加载" + sourceId + " ok");
         }
 
     }
-
-    function selectmatch(sourceId, targetId) {
-        preImg(sourceId, targetId);
-        var f = document.getElementById("pic_match").files;
-        console.log("从文件选择的匹配地图： " + f[0].name);
-        pic_map = f[0].name;
-    }
-
-    // $(function () {
-    //     $('#conf').click(function () {
-    //         console.log("提交");
-    //         console.log("pic:" + pic + "    pic_match:" + pic_match + "     pic_map:" + pic_map);
-    //         if (pic.length != 0 && pic_map.length != 0 && pic_map.length != 0) {
-    //             ischanging = true;
-    //             var picaddress = {
-    //                 pic: pic,
-    //                 pic_match: pic_match,
-    //                 pic_map: pic_map,
-    //             }
-    //             var senddata = JSON.stringify(picaddress);
-    //             $.ajax({
-    //                 url: '/pred',
-    //                 type: 'POST',
-    //                 data: senddata,
-    //                 processData: false,
-    //                 contentType: false,
-    //                 success: function (msg) {
-    //                     if (msg) {
-    //                         // var imgpre = document.getElementById("photo4");
-    //                         pic_fl = "../" + msg.results["result"];
-    //                         console.log("已经得到了最终的图片" + pic_fl);
-    //                         ischanging = false;
-    //                         //$('#result').html(msg.results.result.toString());
-    //                     } else
-    //                         console.log("!!")
-    //                 }
-    //             });
-    //         } else {
-    //             alert("三个部分必须有都选择");
-    //         }
-    //     })
-    // })
-
-    function canchange() {
-        return pic.length != 0 && pic_map.length != 0 && pic_map.length != 0
-    }
-
 
     function getfinalimage() {
         console.log("提交");
-        console.log("pic:" + pic + "    pic_match:" + pic_match + "     pic_map:" + pic_map);
-        var picaddress = {
-            pic: pic,
-            pic_match: pic_match,
-            pic_map: pic_map,
-        }
-        var senddata = JSON.stringify(picaddress);
         $.ajax({
             url: '/pred',
-            type: 'POST',
-            data: senddata,
+            type: 'GET',
             processData: false,
             contentType: false,
             success: function (msg) {
                 if (msg) {
-                    // var imgpre = document.getElementById("photo4");
-                    pic_fl = "../" + msg.results["result"];
-                    console.log("已经得到了最终的图片" + pic_fl);
+                    picbase = "../" + msg.results["base"];
+                    console.log("已经得到了最终的图片");
                     isfinish = true;
                     console.log("1:" + isfinish);
                     //$('#result').html(msg.results.result.toString());
@@ -279,80 +220,91 @@
         });
     }
 
-    function download(ismap) {
-        // 保存图片，下载到本地
-        var type = 'png';
-        if (ismap) {
-            var imgData = $('#cavs2')[0].toDataURL(type);
-        } else {
-            var imgData = $('#cavs')[0].toDataURL(type);
-        }
+    function uploding(id) {
+        var imgUrl = canvas.toDataURL(id);
+        var imageDataB64 = imgUrl.substring(22);
 
-        /**
-         * 获取mimeType
-         * @param  {String} type the old mime-type
-         * @return the new mime-type
-         */
-        var _fixType = function (type) {
-            type = type.toLowerCase().replace(/jpg/i, 'jpeg');
-            var r = type.match(/png|jpeg|bmp|gif/)[0];
-            return 'image/' + r;
-        };
-        // 加工image data，替换mime type
-        imgData = imgData.replace(_fixType(type), 'image/octet-stream');
-        /**
-         * 在本地进行文件保存
-         * @param  {String} data     要保存到本地的图片数据
-         * @param  {String} filename 文件名
-         */
-        var saveFile = function (data, filename) {
-            var save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
-            save_link.href = data;
-            save_link.download = filename;
-
-            var event = document.createEvent('MouseEvents');
-            // initMouseEvent()方法参数解释在    http://blog.sina.com.cn/s/blog_3e9b01a50100leyj.html
-            event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-            save_link.dispatchEvent(event);
-        };
-        // 下载后的文件名
-        var filename = 'neural_doodle' + (new Date()).getTime() + '.' + type;
-        // download
-        saveFile(imgData, filename);
-        if (ismap) {
-            pic_map = filename;
-            console.log("map: " + filename);
-        } else {
-            pic_match = filename;
-            console.log("match: " + filename);
+        if (id === "cavs") {
+            imgData = {img: imageDataB64, "cav": id};
+        } else if (id === "cavs2") {
+            imgData = {img: imageDataB64, "cav": id};
         }
+        var senddata = JSON.stringify(imgData);
+
+        $.ajax({
+            url: "/upload",
+            type: "POST",
+            //data: { "uploadImg": imageDataB64},
+            data: senddata,
+            async: true,
+            cashe: false,
+            contentType: false,
+            processData: false,
+            success: function (msg) {
+                if (msg) {
+                    alert(msg.results["massage"])
+                } else {
+                    alert("传输错误！！！")
+                }
+
+            },
+            error: function () {
+                alert("上传失败！")
+            }
+        })
+
     }
 
 
-    // function getFileUrl(sourceId) {
-    //     var url;
-    //     if (navigator.userAgent.indexOf("MSIE") >= 1) { // IE
-    //         url = document.getElementById(sourceId).value;
-    //     } else if (navigator.userAgent.indexOf("Firefox") > 0) { // Firefox
-    //         url = window.URL.createObjectURL(document.getElementById(sourceId).files.item(0));
-    //     } else if (navigator.userAgent.indexOf("Chrome") > 0) { // Chrome
-    //         url = window.URL.createObjectURL(document.getElementById(sourceId).files.item(0));
-    //     }
-    //     return url;
-    // }
-    //
-    // function geturl(fileid) {
-    //     var name = document.getElementById(fileid).value;
-    //     var pos = name.lastIndexOf("\\");
-    //     return name.substring(pos + 1);
-    // }
-    //
-    // function preImg(sourceId, targetId) {
-    //     var url = getFileUrl(sourceId);
-    //     var imgPre = document.getElementById(targetId);
-    //     imgPre.src = url;
-    // }
+    function getinputimg() {
+        var img = new Image();
+        img.src = $('img').attr('src');
+        console.log(img)
+        img.onload = function () {// 图片加载后执行的方法
+            var base64 = getBase64Image(img);// 将图片转成base64格式的方法
+            imgData = {img: base64, "cav": "pic"};
 
+            pic = base64;
+            var senddata = JSON.stringify(imgData);
+
+            $.ajax({
+                url: "/upload",
+                type: "POST",
+                //data: { "uploadImg": imageDataB64},
+                data: senddata,
+                async: true,
+                cashe: false,
+                contentType: false,
+                processData: false,
+                success: function (msg) {
+                    if (msg) {
+                        alert(msg.results["massage"])
+                    } else {
+                        alert("传输错误！！！")
+                    }
+
+                },
+                error: function () {
+                    alert("上传失败！")
+                }
+            })
+
+
+        }
+
+        function getBase64Image(img) {
+            var canvas = document.createElement("canvas");// 创建一个canvas
+            canvas.width = img.width; // 设置对应的宽高
+            canvas.height = img.height;
+            var ctx = canvas.getContext("2d"); // 二维绘图环境
+            ctx.drawImage(img, 0, 0, img.width, img.height); // 将图片画在画布上
+            var ext = img.src.substring(img.src.lastIndexOf(".") + 1).toLowerCase(); // 获取到图片的格式
+            var dataURL = canvas.toDataURL(); // 得到base64 编码的 dataURL
+            return dataURL.substring(22);
+        }
+
+
+    }
 
 </script>
 <script src="../static/js/jquery-1.11.0.min.js" type="text/javascript"></script>
@@ -367,16 +319,18 @@
     var dragImgUpload = new DragImgUpload("#drop_area", {
         callback: function (files) {
             //回调函数，可以传递给后台等等
-            var file = files[0];
-            pic = file.name;
+            // console.log(files)
+            // var file = files[0];
 
-            // document.getElementById("photo1").src = "../static/input/" + file.name;
-            console.log("风格图片： " + pic);
+            if (files[0].type.indexOf('image') === -1) {
+                alert("您拖的不是图片！");
+                history.go(0);
+            }
 
+            getinputimg();
         }
     })
 </script>
-
 
 </body>
 </html>
