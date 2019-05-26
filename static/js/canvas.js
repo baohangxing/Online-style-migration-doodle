@@ -15,14 +15,14 @@ var canY2;//画布左上角y坐标
 $(function () {
     canvas = $('#cavs')[0];//获取画布的dom
     context = canvas.getContext('2d');//获取context
-    // canX=canvas.offsetLeft;//获取画布左上角的x坐标
-    // canY=canvas.offsetTop;//获取画布左上角的y坐标
+    canX = canvas.offsetLeft;//获取画布左上角的x坐标
+    canY = canvas.offsetTop;//获取画布左上角的y坐标
 
     // canX = 553;//获取画布左上角的x坐标
     // canY = 237;//获取画布左上角的y坐标
 
-    canX = 640;//获取画布左上角的x坐标
-    canY = 241;//获取画布左上角的y坐标
+    // canX = 640;//获取画布左上角的x坐标
+    // canY = 241;//获取画布左上角的y坐标
     // alert("画布左上角坐标："+canX+" "+canY);
     color = '#000';
     // var imgData=context.getImageData(0,0,canvas.width,canvas.height);
@@ -57,14 +57,14 @@ $(function () {
 
     canvas2 = $('#cavs2')[0];//获取画布的dom
     context2 = canvas2.getContext('2d');//获取context
-    // canX2=canvas2.offsetLeft;//获取画布左上角的x坐标
-    // canY2=canvas2.offsetTop;//获取画布左上角的y坐标
+    canX2 = canvas2.offsetLeft;//获取画布左上角的x坐标
+    canY2 = canvas2.offsetTop;//获取画布左上角的y坐标
 
     // canX2 = 555;//获取画布左上角的x坐标
     // canY2 = 237;//获取画布左上角的y坐标
 
-    canX2 = 640;//获取画布左上角的x坐标
-    canY2 = 241;//获取画布左上角的y坐标
+    // canX2 = 640;//获取画布左上角的x坐标
+    // canY2 = 241;//获取画布左上角的y坐标
 
     // alert("画布左上角坐标："+canX2+" "+canY2);
     color2 = '#000';
@@ -107,6 +107,7 @@ var Line = {
         //初始化画笔颜色
         $('#cavs').mousemove(function (e) {//当鼠标在画布上移动时执行
             if (painting === true) {//判断是否是可绘画状态
+
                 var x = e.pageX;//鼠标当前x坐标
                 var y = e.pageY;//鼠标当前y坐标
                 // console.log("鼠标当前坐标" + x + " " + y);
@@ -115,6 +116,10 @@ var Line = {
             }
         });
         $('#cavs').mousedown(function (e) {//当鼠标按下时触发
+
+            canX = canvas.offsetLeft;//获取画布左上角的x坐标
+            canY = canvas.offsetTop;//获取画布左上角的y坐标
+
             painting = true;//鼠标按下可以作画
             p_x = e.pageX;//画笔起始x坐标
             p_y = e.pageY;//画笔起始y坐标
@@ -220,6 +225,10 @@ var Line2 = {
             }
         });
         $('#cavs2').mousedown(function (e) {//当鼠标按下时触发
+
+            canX2 = canvas2.offsetLeft;//获取画布左上角的x坐标
+            canY2 = canvas2.offsetTop;//获取画布左上角的y坐标
+
             painting2 = true;//鼠标按下可以作画
             p_x2 = e.pageX;//画笔起始x坐标
             p_y2 = e.pageY;//画笔起始y坐标
