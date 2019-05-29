@@ -526,14 +526,16 @@ button:focus{
     margin: 0 auto 100px auto;
 }
 /*doodle end*/
-
+.clear{
+   clear:both;
+}
 #cavs{
     border: 1px solid #cccccc;
-    margin: 10px 10px 10px 80px;
+    margin: 10px 10px 10px 200px;
 }
 #cavs2{
     border: 1px solid #cccccc;
-    margin: 10px 10px 10px 80px;
+    margin: 10px 10px 10px 200px;
 }
 .doodle_button{
     float: left;

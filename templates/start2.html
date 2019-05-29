@@ -10,11 +10,7 @@
     <link rel="stylesheet" type="text/css" href="../static/css/demo.css"><!--演示页面样式，使用时可以不引用-->
 
     <link href="../static/assets/css/main.css" rel="stylesheet"><!--可无视-->
-
-
     <link href="../static/dist/css/jquery.wizzy.css" rel="stylesheet">
-
-
     <link href="../static/bootstrap.min.css" rel="stylesheet">
 
     <link href="https://fonts.googleapis.com/css?family=Arimo:400,700" rel="stylesheet">
@@ -28,12 +24,19 @@
     <link href="../static/css/toastr.min.css" rel="stylesheet"/>
     <script src="../static/js/toastr.min.js"></script>
 
+    <link rel="stylesheet" href="../static/font-awesome-4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 
 <div class="wrapper">
     <div class="info">
-        <h2 style="font-size: 50px ">在线风格迁移的涂鸦应用<span>0.22</span></h2>
+        <h2 style="font-size: 50px ">在线风格迁移的涂鸦应用<span>V1.0</span></h2>
         <p style="font-size: 20px">这是一个在线的风格迁移的涂鸦应用，通过语义风格的转移达到创作艺术大师的作品<br> 快来体验吧</p>
     </div>
 
@@ -56,103 +59,221 @@
                     </div>
                 </div>
                 <div class="wz-step">
-                    <div class="row doodle-step">
-                        <div style="width: 70%">
+                    <div class="row">
+                        <div style="width: 60%">
                             <canvas id="cavs" width="400px" height="320px"></canvas>
                         </div>
-                        <div style="width: 30%">
+                        <div style="width: 40%">
+                            <div>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="margin-left: 300px">
+                                   >> 操作说明
+                                </button>
+                                <!-- 模态框 -->
+                                <div class="modal fade" id="myModal">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+
+                                            <!-- 模态框头部 -->
+                                            <div class="modal-header">
+                                                <h2 class="modal-title">绘制步骤</h2>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+
+                                            <!-- 模态框主体 -->
+                                            <div class="modal-body">
+
+                                                <div class="img">
+                                                    <img src="../static/images/bz1.png" width="300" height="200">
+                                                    <div><h4>选择加载第一步中上传的图片</h4></div>
+                                                </div>
+
+                                                <div class="img">
+                                                    <img src="../static/images/bz2.png" width="300" height="200">
+                                                    <div><h4>分别使用一种颜色覆盖一种特征</h4></div>
+                                                </div>
+
+                                                <div class="img">
+                                                    <img src="../static/images/bz3.png" width="300" height="200">
+                                                    <div><h4>使用黑色舍弃不需要的特征以及特征交界处</h4></div>
+                                                </div>
+
+                                                <div class="img">
+                                                    <img src="../static/images/f f2.png" width="300" height="200">
+                                                    <div ><h4>直接从本地上传已经绘制好的语义图片</h4></div>
+                                                </div>
+                                            </div>
+                                            <!-- 模态框底部 -->
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="doodle_button">
-                                <input type="button" value="       " style="background: red" id="colorred">
+                                <a href="#" data-toggle="tooltip" data-placement="top" title="使用红色选择特征">
+                                    <input type="button" value="       " style="background: red" id="colorred">
+                                </a>
                             </div>
                             <div class="doodle_button">
-                                <input type="button" value="       " style="background: green" id="colorgreen">
+                                <a href="#" data-toggle="tooltip" data-placement="top" title="使用绿色选择特征">
+                                    <input type="button" value="       " style="background: green" id="colorgreen">
+                                </a>
                             </div>
                             <div class="doodle_button">
-                                <input type="button" value="        " style="background: yellow" id="coloryellow">
+                                <a href="#" data-toggle="tooltip" data-placement="top" title="使用黄色选择特征">
+                                    <input type="button" value="        " style="background: yellow" id="coloryellow">
+                                </a>
                             </div>
                             <div class="doodle_button">
-                                <input type="button" value="撤销" id="Cancel">
+                                <a href="#" data-toggle="tooltip" data-placement="top" title="使用黑色覆盖不需要的特征">
+                                    <input type="button" value="        " style="background: black" id="colorblack">
+                                </a>
                             </div>
                             <div class="doodle_button">
-                                <input type="button" value="清屏" id="Clear">
+                                <a href="#" data-toggle="tooltip" data-placement="top" title="使用调色板工具选择其他颜色">
+                                    <input type="color" id="color">
+                                </a>
                             </div>
                             <div class="doodle_button">
-                                <input type="button" value="线条" id="Line">
+                                <a href="#" data-toggle="tooltip" data-placement="top" title="移动圆点调节笔头大小">
+                                    <input type="range" id="thick" value="5" min="0" max="100">
+                                </a>
+                            </div>
+
+                            <div class="clear"></div>
+
+                            <div class="doodle_button">
+                                <a href="#" data-toggle="tooltip" data-placement="top" title="点击按钮撤销上一步">
+                                    <i class="fa fa-reply fa-2x" aria-hidden="true"  id="Cancel" ></i>
+                                </a>
+                            </div>
+
+                            <div class="doodle_button">
+                                <a href="#" data-toggle="tooltip" data-placement="top" title="点击按钮清空画板">
+                                    <i class="fa fa-times fa-2x" aria-hidden="true" id="Clear"></i>
+                                </a>
                             </div>
                             <div class="doodle_button">
-                                <input type="button" value="橡皮" id="Eraser">
+                                <a href="#" data-toggle="tooltip" data-placement="top" title="点击使用线条工具">
+                                    <i class="fa fa-minus fa-2x" aria-hidden="true" id="Line"></i>
+                                </a>
                             </div>
                             <div class="doodle_button">
-                                <input type="button" value="        " style="background: black" id="colorblack">
+                                <a href="#" data-toggle="tooltip" data-placement="top" title="点击使用橡皮擦工具">
+                                    <i class="fa fa-eraser fa-2x" aria-hidden="true" id="Eraser"></i>
+                                </a>
                             </div>
+
+                            <div class="clear"></div>
+
                             <div class="doodle_button">
-                                <input type="color" id="color">
+                                <a href="#" data-toggle="tooltip" data-placement="top" title="点击载入图片">
+                                    <i class="fa fa-download fa-3x" aria-hidden="true" onclick="InputMypic(`cavs`,pic)"></i>
+                                </a>
                             </div>
-                            <div class="doodle_button">
-                                <button onclick="InputMypic(`cavs`,pic)">加载风格图片</button>
-                            </div>
+
+                            <div class="clear"></div>
+
                             <div class="doodle_button">
                                 选择语义地图
-                                <input style="display: inline" type="file" id="pic_match"
+                                <br>
+                                <input style="display: inline" class="btn-primary" type="file" id="pic_match"
                                        onchange="selectmap(this.id,`cavs`)"/>
                             </div>
+
+                            <div class="clear"></div>
+
                             <div class="doodle_button">
-                                <input type="range" id="thick" value="5" min="0" max="100">
-                            </div>
-                            <br>
-                            <div class="doodle_button">
-                                <button onclick=" uploding('cavs') ">完成</button>
+                                <button  class="btn-lg btn-primary" onclick=" uploding(`cavs`) ">完成<i class="fa fa-check" aria-hidden="true"></i></button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="wz-step">
-                    <div class="row doodle-step">
-                        <div style="width: 70%">
+                    <div class="row">
+                        <div style="width: 60%">
                             <canvas id="cavs2" width="400px" height="320px"></canvas>
                         </div>
-                        <div style="width: 30%">
+                        <div style="width: 40%">
                             <div class="doodle_button">
-                                <input type="button" value="       " style="background: red" id="colorred2">
+                                <a href="#" data-toggle="tooltip" data-placement="top" title="使用红色特征绘制">
+                                    <input type="button" value="       " style="background: red" id="colorred2">
+                                </a>
                             </div>
                             <div class="doodle_button">
-                                <input type="button" value="       " style="background: green" id="colorgreen2">
+                                <a href="#" data-toggle="tooltip" data-placement="top" title="使用绿色特征绘制">
+                                    <input type="button" value="       " style="background: green" id="colorgreen2">
+                                </a>
                             </div>
                             <div class="doodle_button">
-                                <input type="button" value="        " style="background: yellow" id="coloryellow2">
+                                <a href="#" data-toggle="tooltip" data-placement="top" title="使用黄色特征绘制">
+                                    <input type="button" value="        " style="background: yellow" id="coloryellow2">
+                                </a>
                             </div>
                             <div class="doodle_button">
-                                <input type="button" value="撤销" id="Cancel2">
+                                <a href="#" data-toggle="tooltip" data-placement="top" title="使用黑色覆盖不需要的特征">
+                                    <input type="button" value="        " style="background: black" id="colorblack2">
+                                </a>
                             </div>
                             <div class="doodle_button">
-                                <input type="button" value="清屏" id="Clear2">
+                                <a href="#" data-toggle="tooltip" data-placement="top" title="使用调色板工具选择其他颜色">
+                                    <input type="color" id="color2">
+                                </a>
                             </div>
                             <div class="doodle_button">
-                                <input type="button" value="线条" id="Line2">
+                                <a href="#" data-toggle="tooltip" data-placement="top" title="移动圆点调节笔头大小">
+                                    <input type="range" id="thick2" value="5" min="0" max="100">
+                                </a>
+                            </div>
+
+                            <div class="clear"></div>
+
+                            <div class="doodle_button">
+                                <a href="#" data-toggle="tooltip" data-placement="top" title="点击按钮撤销上一步">
+                                    <i class="fa fa-reply fa-2x" aria-hidden="true"  id="Cancel2" ></i>
+                                </a>
+                            </div>
+
+                            <div class="doodle_button">
+                                <a href="#" data-toggle="tooltip" data-placement="top" title="点击按钮清空画板">
+                                    <i class="fa fa-times fa-2x" aria-hidden="true" id="Clear2"></i>
+                                </a>
                             </div>
                             <div class="doodle_button">
-                                <input type="button" value="橡皮" id="Eraser2">
+                                <a href="#" data-toggle="tooltip" data-placement="top" title="点击使用线条工具">
+                                    <i class="fa fa-minus fa-2x" aria-hidden="true" id="Line2"></i>
+                                </a>
                             </div>
                             <div class="doodle_button">
-                                <input type="button" value="        " style="background: black" id="colorblack2">
+                                <a href="#" data-toggle="tooltip" data-placement="top" title="点击使用橡皮擦工具">
+                                    <i class="fa fa-eraser fa-2x" aria-hidden="true" id="Eraser2"></i>
+                                </a>
                             </div>
+
+                            <div class="clear"></div>
+
                             <div class="doodle_button">
-                                <input type="color" id="color2">
+                                <a href="#" data-toggle="tooltip" data-placement="top" title="点击载入图片">
+                                    <i class="fa fa-download fa-3x" aria-hidden="true" onclick="InputMypic(`cavs2`,pic)"></i>
+                                </a>
                             </div>
+
+                            <div class="clear"></div>
+
                             <div class="doodle_button">
-                                <button onclick="InputMypic(`cavs2`,pic)">加载风格图片</button>
-                            </div>
-                            <div class="doodle_button">
-                                选择设定地图
-                                <input style="display: inline" type="file" id="pic_map"
+                                    选择设定地图
+                                <br>
+                                <input class="btn-primary" style="display: inline" type="file" id="pic_map"
                                        onchange="selectmap(this.id,`cavs2`)"/>
                             </div>
+
+                            <div class="clear"></div>
+
                             <div class="doodle_button">
-                                <input type="range" id="thick2" value="5" min="0" max="100">
-                            </div>
-                            <br>
-                            <div class="doodle_button">
-                                <button onclick=" uploding('cavs2')">完成</button>
+                                <button class="btn-primary btn-lg" onclick=" uploding(`cavs2`)">完成<i class="fa fa-check" aria-hidden="true"></i></button>
                             </div>
                         </div>
                     </div>
@@ -166,8 +287,8 @@
 </div>
 <script>
 
-    pic = ""
-    picbase = ""
+    pic = "";
+    picbase = "";
     isfinish = false;
 
     function InputMypic(cav, image) {
@@ -228,13 +349,16 @@
     }
 
     function uploding(id) {
-        var imgUrl = canvas.toDataURL(id);
+        console.log(id)
+        var imgUrl = document.getElementById(id).toDataURL(id);
         var imageDataB64 = imgUrl.substring(22);
 
         if (id === "cavs") {
             imgData = {img: imageDataB64, "cav": id};
+            console.log("1111111111111111")
         } else if (id === "cavs2") {
             imgData = {img: imageDataB64, "cav": id};
+             console.log("2222222222222222")
         }
         var senddata = JSON.stringify(imgData);
 
@@ -363,6 +487,7 @@
             toastr.info(info)
         }
     })
+
 </script>
 
 </body>

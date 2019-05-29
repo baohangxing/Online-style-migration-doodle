@@ -24,6 +24,7 @@
             let link_width = $(step_links[0]).width();
             let step = 0;
             let ok = false;
+            let loading = false;
 
             function init() {
                 for (i = 1; i < step_count; i++) {
@@ -61,11 +62,21 @@
              */
             function loader(show) {
                 let loader = '<div class="loading"></div>';
+                // let progress = '<div class="progress progress-striped active">\n' +
+                //     '    <div class="progress-bar progress-bar-success" role="progressbar"\n' +
+                //     '         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"\n' +
+                //     '         style="width: 40%;">\n' +
+                //     '        <span class="sr-only">40% 完成</span>\n' +
+                //     '    </div>\n' +
+                //     '</div>'
                 if (show === true) { //Show Loader Spinner
                     content.fadeOut(400, function () {
                         elem.addClass('progress');
                         setTimeout(() => {
-                            elem.append(loader);
+                            if(loading === false){
+                                 elem.append(loader);
+                            }
+                            loading = true;
                         }, 500);
                     });
                 } else {

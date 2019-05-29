@@ -10,6 +10,10 @@ like this:
 ![](etc/bj001.png)
 
 ...
+GIF :
+![](etc/index.gif)
+
+![](etc/start.gif)
 
 ### How to use it
 

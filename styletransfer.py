@@ -57,3 +57,6 @@ def getpath(a):
     return '/'.join(a[2:].split('\\'))
 
 
+#
+#
+# a = makeit(".\static\input\monet.jpg",".\static\input\monet_semantic.png",".\static\input\content_semantic.png" )

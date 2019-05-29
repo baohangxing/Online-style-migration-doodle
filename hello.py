@@ -25,6 +25,15 @@ app = Flask(__name__)
 pic_path = ""
 pic_match_path = ""
 pic_map_path = ""
+
+def clearpic():
+    global pic_path
+    global pic_map_path
+    global pic_match_path
+    pic_path = ""
+    pic_match_path = ""
+    pic_map_path = ""
+
 @app.route('/isready', methods=['GET'])
 def isready():
     global pic_path
@@ -60,9 +69,9 @@ def upload():
         elif cav == "pic":
             pic_path = filename
 
-        print("pic_path:     " + pic_path)
-        print( " pic_map_path:      " + pic_map_path)
-        print("pic_match_path:      " + pic_match_path)
+        print("pic_path:           " + pic_path)
+        print(" pic_map_path:      " + pic_map_path)
+        print("pic_match_path:     " + pic_match_path)
 
 
         file.write(imgdata)
@@ -86,7 +95,6 @@ def pred():
             return jsonify(results={"result": None})
     else:
         return jsonify(results={"result": None})
-
 
 @app.route('/')
 def main():
