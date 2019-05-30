@@ -198,6 +198,53 @@
                             <canvas id="cavs2" width="400px" height="320px"></canvas>
                         </div>
                         <div style="width: 40%">
+                            <div>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2" style="margin-left: 300px">
+                                   >> 操作说明
+                                </button>
+                                <!-- 模态框 -->
+                                <div class="modal fade" id="myModal2">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+
+                                            <!-- 模态框头部 -->
+                                            <div class="modal-header">
+                                                <h2 class="modal-title">绘制步骤</h2>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+
+                                            <!-- 模态框主体 -->
+                                            <div class="modal-body">
+
+                                                <div class="img">
+                                                    <img src="../static/images/step31.png" width="300" height="200">
+                                                    <div><h4>选择加载第一步中上传的图片</h4></div>
+                                                </div>
+
+                                                <div class="img">
+                                                    <img src="../static/images/step33.png" width="300" height="200">
+                                                    <div><h4>分别使用一种颜色覆盖一种特征</h4></div>
+                                                </div>
+
+                                                <div class="img">
+                                                    <img src="../static/images/step32.png" width="300" height="200">
+                                                    <div><h4>使用上一张绘制的颜色绘制自己的作品</h4></div>
+                                                </div>
+
+                                                <div class="img">
+                                                    <img src="../static/images/step34.png" width="300" height="200">
+                                                    <div ><h4>得到最终的图片，就像上面一样</h4></div>
+                                                </div>
+                                            </div>
+                                            <!-- 模态框底部 -->
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="doodle_button">
                                 <a href="#" data-toggle="tooltip" data-placement="top" title="使用红色特征绘制">
                                     <input type="button" value="       " style="background: red" id="colorred2">
