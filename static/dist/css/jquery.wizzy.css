@@ -41,17 +41,17 @@ License: MIT
   border-radius: 3px;
 }
 .wz-wrapper .loading {
-  margin: 9px;
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  border: 0.25rem solid rgba(0, 0, 0, 0.2);
-  border-top-color: #34495e;
-  animation: spin 0.5s infinite ease-in-out;
+  /*margin: 9px;*/
+  /*border-radius: 50%;*/
+  /*width: 24px;*/
+  /*height: 24px;*/
+  /*border: 0.25rem solid rgba(0, 0, 0, 0.2);*/
+  /*border-top-color: #34495e;*/
+  /*animation: spin 0.5s infinite ease-in-out;*/
 }
 .wz-wrapper.progress {
   min-height: 50px;
-  width: 50px;
+  width: 1200px;
   border-radius: 50px;
   box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.4);
 }

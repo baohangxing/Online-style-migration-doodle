@@ -61,26 +61,41 @@
              * @param {boolean} show
              */
             function loader(show) {
-                let loader = '<div class="loading"></div>';
-                // let progress = '<div class="progress progress-striped active">\n' +
-                //     '    <div class="progress-bar progress-bar-success" role="progressbar"\n' +
-                //     '         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"\n' +
-                //     '         style="width: 40%;">\n' +
-                //     '        <span class="sr-only">40% 完成</span>\n' +
-                //     '    </div>\n' +
-                //     '</div>'
+                let loader = '<div class="loading">' +
+                    '<div class="progress progress-striped" style="margin-top: 18px;margin-left: 50px;margin-right: 50px">\n' +
+                    '    <div class="progress-bar progress-bar-success" id="myprogressbar" role="progressbar"\n' +
+                    '         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"\n' +
+                    '         style="width: 0%;">\n' +
+                    '        <span class="sr-only"></span>\n' +
+                    '    </div>\n' +
+                    '    <script>\n' +
+                    '        let s = 0;\n' +
+                    '\n' +
+                    '        function add() {\n' +
+                    '            if (s <= 100) {\n' +
+                    '                s += 0.5;\n' +
+                    '                document.getElementById("myprogressbar").style.width = s.toString() + "%";\n' +
+                    '            }\n' +
+                    '        }\n' +
+                    '\n' +
+                    '        timeer = window.setInterval(add, 200);\n' +
+                    '    </script>\n' +
+                    '</div>'+
+                    '</div>';
                 if (show === true) { //Show Loader Spinner
                     content.fadeOut(400, function () {
                         elem.addClass('progress');
                         setTimeout(() => {
                             if(loading === false){
                                  elem.append(loader);
+                                 // nav.append(bar);
                             }
                             loading = true;
                         }, 500);
                     });
                 } else {
                     elem.find('.loading').remove();
+                    // nav.find('.progress-striped').remove();
                     elem.removeClass('progress');
                     base = picbase.slice(3)
                     let showfinal = '<div style="margin-left: 300px;margin-top: 50px"><img src="data:image/png;base64,' + base + '" style="width: 600px ;height: 400px"></div>';
