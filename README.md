@@ -10,7 +10,7 @@ Workflows for the Next Generation of Artists)](https://nucl.ai/blog/neural-doodl
 
 ### Show:
 index :
-![](etc/index.png)
+![](etc/index.jpg)
 
 start :
 ![](etc/start.png)
