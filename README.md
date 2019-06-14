@@ -10,12 +10,16 @@ Workflows for the Next Generation of Artists)](https://nucl.ai/blog/neural-doodl
 
 ### Show:
 index :
-![](etc/bj001.png)
+![](etc/index.png)
+
+start :
+![](etc/start.png)
 
 GIF :
-![](etc/index.gif)
 
-![](etc/start.gif)
+![](etc/indexshow.gif)
+
+![](etc/startshow.gif)
 
 ### How to use it
 
@@ -41,38 +45,39 @@ Pillow>=5.1.0
 >
 >conda install pytorch torchvision cudatoolkit=10.0
 
+* 注：清华大学的流好像不能用了，可以转向中科大等
 
 flask
 ```
 run hello.py
 ```
 ### Features
-upload your image or paint by yourself
+*  upload your image or paint by yourself
 
-more style migration functions in .ipynb, you can add them in your web
+* more style migration functions in .ipynb, you can add them in your web
 
 
 ### Problem（//todo）
-toooooooooo much js and css need to organize
+* toooooooooo much js and css need to organize
 
-Generate an image need 36 seconds... (i7-6700HQ 970m)
+* Generate an image need 36 seconds... (i7-6700HQ 970m)
 
 ### Recommended to read
 
-[论文|结合马尔科夫随机场和卷积神经网络的图像合成](https://zhuanlan.zhihu.com/p/25742298)
+* [论文|结合马尔科夫随机场和卷积神经网络的图像合成](https://zhuanlan.zhihu.com/p/25742298)
 
 
-[Neural Doodles:
+* [Neural Doodles:
 Workflows for the Next Generation of Artists
 by Alex J. Champandard  on  March 7, 2016](https://nucl.ai/blog/neural-doodles/)
 
 
 ### End
-只是做了一点微小的工作。。。
+* 只是做了一点微小的工作。。。
 
-开源精神万岁！
+* 开源精神万岁！
 
-thanks
+* thanks
 
 ### License
 

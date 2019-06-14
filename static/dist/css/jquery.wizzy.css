@@ -62,7 +62,7 @@ License: MIT
   display: flex;
   flex: 1;
   flex-direction: column;
-  background-color: #dddddd;
+  /*background-color: #dddddd;*/
 }
 .wz-wrapper .wz-inner .wz-header {
   flex: 0;

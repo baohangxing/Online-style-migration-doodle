@@ -2,6 +2,7 @@
 
 body{
     background: url('../../../static/images/bj2.png') no-repeat;
+    background-size: 100%;
     /*background-attachment: fixed;*/
     font-family: "Roboto";
     height: 100vh;
@@ -36,7 +37,8 @@ body{
 }
 
 .wrapper .info h1{
-    color: #2d3e50;
+    /*color: #2d3e50;*/
+    color: #ffffff;
     margin-left: 40px;
     font-size: 40px;
 }
@@ -50,7 +52,8 @@ body{
 
 .wrapper .info p{
     margin: 30px 0px 50px 0px;
-    color: #666666;
+    color: #ffffff;
+    /*color: #666666;*/
     font-size: 20px;
 }
 .spliter{
