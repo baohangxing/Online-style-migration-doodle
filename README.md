@@ -71,6 +71,7 @@ run hello.py
 Workflows for the Next Generation of Artists
 by Alex J. Champandard  on  March 7, 2016](https://nucl.ai/blog/neural-doodles/)
 
+* [模型参考](https://github.com/cheind/py-style-transfer)
 
 ### End
 * 只是做了一点微小的工作。。。
