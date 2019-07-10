@@ -45,7 +45,8 @@ Pillow>=5.1.0
 >
 >conda install pytorch torchvision cudatoolkit=10.0
 
-* 注：清华大学的流好像不能用了，可以转向中科大等
+~~注：清华大学的流好像不能用了，可以转向中科大等~~
+* 更新： 清华大学的流又可以用了
 
 flask
 ```
